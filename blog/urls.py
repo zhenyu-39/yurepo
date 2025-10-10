@@ -13,4 +13,5 @@ urlpatterns = [
     path('blog/delete/<int:blog_id>',views.delete,name='delete'),
     path('blog/delete/comment/<int:comment_id>',views.delete_comment,name='delete_comment'),
     path('blog/delete/image/<int:image_id>',views.delete_image,name='delete_image'),
+    path('blog/house',views.house,name='house'),
 ]

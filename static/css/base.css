@@ -84,3 +84,48 @@ header.text-bg-dark{
 .card.bg-image .card-text{
     color: #1f2937; /* 深色 */
 }
+
+.card.bg-image-1{
+    position: relative;
+    overflow: hidden;
+    background-image: url('../image/wallhaven-qr27rq.jpg') !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent !important;
+    /* 覆盖 Bootstrap 的卡片背景变量 */
+    --bs-card-bg: transparent !important;
+    --bs-card-cap-bg: transparent !important; /* header/footer */
+}
+
+/* 移除卡片内层默认纯白背景，避免遮挡背景图 */
+.card.bg-image-1 .card-header,
+.card.bg-image-1 .card-body,
+.card.bg-image-1 .card-footer{
+    background-color: transparent;
+}
+
+/* 半透明遮罩，增强可读性 */
+.card.bg-image-1::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.65);
+}
+
+/* 提升可读性：为卡片增加轻微阴影与边框 */
+.card.bg-image-1{
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    border: 1px solid rgba(0,0,0,0.06);
+}
+
+/* 如果卡片内容文字较浅，增强可读性 */
+.card.bg-image-1 .card-header a,
+.card.bg-image-1 .card-text{
+    color: #1f2937; /* 深色 */
+}
+/* 让内容位于遮罩之上 */
+.card.bg-image-1 > *{
+    position: relative;
+    z-index: 1;
+}

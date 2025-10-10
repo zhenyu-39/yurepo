@@ -92,3 +92,9 @@ def delete_image(request,image_id):
         image.delete()
         return redirect('blog:taking')
     return redirect('blog:taking')
+
+@login_required
+def house(request):
+    user_blogs = Blog.objects.filter(author=request.user).order_by('-pub_time')
+    print('查询到的文章数量',user_blogs.count())
+    return render(request,'html/house.html',context={'blogs':user_blogs})
