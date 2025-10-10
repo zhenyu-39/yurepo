@@ -1,0 +1,86 @@
+/* 默认背景（可作为兜底） */
+body{
+    background: url('../image/wallhaven-ly3eel.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* 首页背景 */
+body.page-index{
+    background-image: url('../image/wallhaven-qr2wd5.png');
+}
+/* 其它页面背景 */
+body.page-pub{
+    background-image: url('../image/wallhaven-qrzgvq.jpg');
+}
+body.page-taking{
+    background-image: url("../image/use2jpg.jpg");
+}
+body.page-detail{
+    background-image: url("../image/use1.png");
+}
+body.page-login{
+    background-image: url("../image/use3.jpg");
+}
+body.page-register{
+    background-image: url("../image/use4.jpg");
+}
+
+
+/* 主内容容器半透明，便于看到背景图 */
+.main-panel{
+    background-color: rgba(255,255,255,0.80);
+}
+
+/* 首页卡片使用背景图并叠加半透明白色遮罩，保证可读性 */
+.card.bg-image{
+    position: relative;
+    overflow: hidden;
+    background-image: url('../image/wallhaven-qr2wd5.png') !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent !important;
+    /* 覆盖 Bootstrap 的卡片背景变量 */
+    --bs-card-bg: transparent !important;
+    --bs-card-cap-bg: transparent !important; /* header/footer */
+}
+
+/* 移除卡片内层默认纯白背景，避免遮挡背景图 */
+.card.bg-image .card-header,
+.card.bg-image .card-body,
+.card.bg-image .card-footer{
+    background-color: transparent;
+}
+
+/* 半透明遮罩，增强可读性 */
+.card.bg-image::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.65);
+}
+
+/* 提升可读性：为卡片增加轻微阴影与边框 */
+.card.bg-image{
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    border: 1px solid rgba(0,0,0,0.06);
+}
+
+/* 顶部导航透明，露出背景图 */
+header.text-bg-dark{
+    background-color: rgba(0,0,0,0.25) !important; /* 半透明，不夺目 */
+    border-bottom-color: rgba(255,255,255,0.15) !important;
+    backdrop-filter: saturate(120%) blur(6px); /* 轻微磨砂，提高可读性 */
+}
+
+/* 让内容位于遮罩之上 */
+.card.bg-image > *{
+    position: relative;
+    z-index: 1;
+}
+
+/* 如果卡片内容文字较浅，增强可读性 */
+.card.bg-image .card-header a,
+.card.bg-image .card-text{
+    color: #1f2937; /* 深色 */
+}
