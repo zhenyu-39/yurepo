@@ -7,6 +7,7 @@ from .models import CaptchaModel
 from django.views.decorators.http import require_http_methods
 from .forms import RegisterForm,LoginForm
 from django.contrib.auth import get_user_model,login,logout
+import re
 
 User = get_user_model()
 
@@ -69,11 +70,19 @@ def register(request):
             return redirect(reverse('yuauth:register'))
             # return render(request, 'html/register.html', {'form': form})
 
+
+def is_valid_email(email):
+    # 和前端保持完全一致的正则规则
+    pattern = r'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'
+    return re.match(pattern, email) is not None
+
 def send_email_captcha(request):
     # ?email=xxx
     email = request.GET.get('email')
     if not email:
         return JsonResponse({'code':400,'message':'必须传递邮箱！'})
+    if not is_valid_email(email):
+        return JsonResponse({'code':400,'message':'请输入有效的邮箱地址'})
     #生成验证码（取随机四位阿拉伯数字）
     #['0','2','2','1']
     captcha ="".join(random.sample(string.digits,4))
@@ -82,4 +91,3 @@ def send_email_captcha(request):
     print(captcha)
     send_mail("yuzblog注册验证码",message=f'您的注册验证码是:{captcha}',recipient_list=[email],from_email=None)
     return JsonResponse({'code':200,'message':'邮箱发送成功'})
-
