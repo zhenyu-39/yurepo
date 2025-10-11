@@ -1,0 +1,48 @@
+{% extends 'html/base.html' %}
+
+{% block body_class %}page-taking{% endblock %}
+{% block title %}
+    留言板
+{% endblock %}
+{% block head %}
+    <script src="{% static 'jquery/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'js/taking.js' %}"></script>
+    <style>
+        .taking-textarea {
+            width: 100%;
+            min-height: 220px;
+            resize: vertical;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <h1 class="text-center">留言板</h1>
+    <form action="" method="post">
+    {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label"></label>
+            <textarea name="content" class="form-control taking-textarea" placeholder="畅所欲言吧..."></textarea>
+            <div class="mb-3 text-end mt-3">
+                <button class="btn btn-primary" id="submit-btn-1">发布</button>
+            </div>
+        </div>
+    </form>
+    <div class="mt-2">
+        <ul class="list-group list-group-flush">
+            {% for comment in images %}
+                <div class="d-flex justify-content-between">
+                    <div class="user-info">
+                        <img src="{% static 'image/logo1.jpg' %}" class="rounded-circle" alt="" height="35px">
+                        <span class="ms-2">{{ comment.author.username }}</span>
+                    </div>
+                    <div class="create-time" style="line-height: 35px;">
+                        {{ comment.pub_time|date:"Y年m月d日 H时i分" }}
+                    </div>
+                </div>
+                <div class="mt-3">{{ comment.content|striptags }}</div>
+            {% endfor %}
+            <hr>
+        </ul>
+    </div>
+{% endblock %}
